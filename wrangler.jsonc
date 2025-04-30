@@ -1,0 +1,55 @@
+/**
+ * For more details on how to configure Wrangler, refer to:
+ * https://developers.cloudflare.com/workers/wrangler/configuration/
+ */
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "hubinsight",
+	"main": "src/index.ts",
+	"compatibility_date": "2025-04-17",
+	"observability": {
+		"enabled": true
+	},
+	"triggers": {
+		"crons": [
+			"*/10 * * * *"
+		]
+	},
+	/**
+	 * Analytics Engine binding for time-series data storage
+	 */
+	"analytics_engine_datasets": [
+		{
+			"binding": "DOCKER_PULLS_DATASET",
+			"dataset": "docker_pulls"
+		}
+	],
+	/**
+	 * Environment Variables
+	 * Docker Hub repositories to track in structured format
+	 */
+	"vars": {
+		"DOCKER_CONFIG": {
+			"repositories": [
+				{
+					"org": "kubeovn",
+					"repo": "kube-ovn"
+				},
+				{
+					"org": "cilium",
+					"repo": "cilium"
+				},
+				{
+					"org": "library",
+					"repo": "nginx"
+				}
+			]
+		},
+		"ACCOUNT_ID": "229576964b13f29e66c3c205866c8730"
+	},
+	/**
+	 * Secret Variables
+	 * The API_TOKEN must be set using the wrangler secret command:
+	 * wrangler secret put API_TOKEN
+	 */
+}
