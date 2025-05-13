@@ -40,8 +40,8 @@
 					"repo": "cilium"
 				},
 				{
-					"org": "library",
-					"repo": "nginx"
+					"org": "calico",
+					"repo": "cni"
 				}
 			]
 		},
